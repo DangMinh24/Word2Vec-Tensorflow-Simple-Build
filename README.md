@@ -31,4 +31,5 @@ Usually there will be a activation function of each layer (hiddens,output). To s
 
 According to 1/, a function that need to maximize is: J=z2_t - log(sum(exp(z2))) => loss=log(sum(exp(z2))) - z2_t where z2_t is a z2 of t where t=target word
 
+To minimize loss function, I use Gradient Descent Optimization, which finds derivation of W and W2, then update W and W2 according to formular: new_W= old_W -learning_rate\*derivation
 
