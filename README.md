@@ -25,11 +25,14 @@ So, I will try to make a Neural Network model, with input is a word(context word
     W2=tf.Variable(tf.random_uniform([num_hidden_nodes,vocabulary_size],-1.0,1.0,seed=1))
     z1=tf.matmul(tf.to_float(input),W)
     z2=tf.matmul(z1,W2
-Input is an one-hot encoding vector for context word, num_hidden_nodes to determine how many nodes in hidden layers. W matrix to represent weight input->hidden layers, W2 matrix to represent weight hidden->output layer
+Input is an one-hot encoding vector for context word, num_hidden_nodes to determine how many nodes in hidden layers.Output is also an one-hot encoding vector (same size as input) for target word. W matrix to represent weight input->hidden layers, W2 matrix to represent weight hidden->output layer
 z1 is a result of multiplication (input\*W).
 Usually there will be a activation function of each layer (hiddens,output). To simplify, in hidden layer, we use linear function, which simply keep the same result (input\*W).Similar to z2. 
 
-According to 1/, a function that need to maximize is: J=z2_t - log(sum(exp(z2))) => loss=log(sum(exp(z2))) - z2_t where z2_t is a z2 of t where t=target word
+According to 1/, a function that need to maximize is: J=z2_t - log(sum(exp(z2))) => loss=log(sum(exp(z2))) - z2_t where z2_t is a z2 of t where t=target word. Indeed, the loss function will decrease when score of z2 increase and sum(exp(z2)) decrease. So the loss function means that try to find a way that model can predict true target(z2_t) as much as it can, and not to predict fail target as much as it can 
 
 To minimize loss function, I use Gradient Descent Optimization, which finds derivation of W and W2, then update W and W2 according to formular: new_W= old_W -learning_rate\*derivation
 
+When I run hundreds of iter with a single simple instance, the loss function decrease, which means the model becomes better each iters. After that, you can use the newest matrix W and W2 to find a output
+
+The above example is the simpliest model of Word Embedding, which only use one context word. But if I want to use more than one context word? That where CBOW (Mikolov et al 2013) has it place. 
